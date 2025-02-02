@@ -50,9 +50,7 @@
     <input bind:value={amount}>
   </div>
 
-  {#if selectedResource}
     <ResourceTable resource = {selectedResource} amount = {amount} />
-  {/if}
 </div>
 
 <style>
@@ -62,10 +60,15 @@
 
   .resourceButtons {
     margin-bottom: 4rem;
+    min-height: 6rem;
+  }
+
+  .workshopButtons {
+    margin: 1rem 0;
   }
 
   .resourceButton {
-    font-size: 14px;
+    font-size: 1rem;
     margin: 0.25rem;
 
       &[data-active="true"] {
@@ -75,6 +78,8 @@
 
   .workshopButton {
     background-color: #213547;
+    border-radius: 0;
+    font-size: 0.75rem;
   }
 
   .amount {

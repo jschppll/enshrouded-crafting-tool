@@ -3,7 +3,7 @@
     import Utils from "../resources/utils"
     import { SvelteSet } from 'svelte/reactivity';
 
-    let { resource, amount }: { resource: CompoundResource, amount: number } = $props();
+    let { resource, amount }: { resource: CompoundResource | undefined, amount: number } = $props();
 
     let expandedIngredients = $state<SvelteSet<string>>(new SvelteSet());
 
@@ -109,33 +109,33 @@
         </ul>
     </div>
 
-    {#if resource}
-        <table class="ingredientTable">
-            <thead>
+    <table class="ingredientTable">
+        <thead>
+        <tr>
+            <th>Ingredient</th>
+            <th>Quantity</th>
+            <th>Location</th>
+        </tr>
+        </thead>
+        <tbody>
+        {#if resource}
+        {#each ingredientMap.entries() as [id, amount]}
             <tr>
-                <th>Ingredient</th>
-                <th>Quantity</th>
-                <th>Location</th>
+                <td>
+                    {#if Utils.getCompoundResourceFromId(id)}
+                        <button onclick={() => AddExpandedIngredientToMap(id)}>{id}</button>
+                    {:else}
+                        <p>{id}</p>
+                    {/if}
+                </td>
+
+                <td>{amount}</td>
+
+                <td></td>
             </tr>
-            </thead>
-            <tbody>
-            {#each ingredientMap.entries() as [id, amount]}
-                <tr>
-                    <td>
-                        {#if Utils.getCompoundResourceFromId(id)}
-                            <button onclick={() => AddExpandedIngredientToMap(id)}>{id}</button>
-                        {:else}
-                            <p>{id}</p>
-                        {/if}
-                    </td>
-
-                    <td>{amount}</td>
-
-                    <td></td>
-                </tr>
-            {/each}
-        </table>
-    {/if}
+        {/each}
+        {/if}
+    </table>
 </div>
 
 <style>
