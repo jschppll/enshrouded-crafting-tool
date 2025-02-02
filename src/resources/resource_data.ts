@@ -10,6 +10,7 @@ const data : Data = {
         { id : "copper_ore" },
         { id : "dirt" },
         { id : "flax" },
+        { id : "flintstone" },
         { id : "fossilized_bone" },
         { id : "kindlewaste_flower" },
         { id : "lump_of_clay" },
@@ -112,6 +113,15 @@ const data : Data = {
             ],
             workshop: "grinding_stones",
             outputQuantity : 2,
+        },
+        {
+            id : "brick_timbered_block",
+            inputs : [
+                { id : "fired_bricks_block", quantity : 5 },
+                { id : "wood_logs", quantity : 5 },
+            ],
+            workshop: "workbench",
+            outputQuantity : 100,
         },
         {
             id : "bronze_bars",
@@ -218,6 +228,14 @@ const data : Data = {
             outputQuantity : 2,
         },
         {
+            id : "fired_bricks_block",
+            inputs : [
+                { id : "fired_brick", quantity : 10 },
+            ],
+            workshop: "workbench",
+            outputQuantity : 100,
+        },
+        {
             id : "flour",
             inputs : [
                 { id : "wheat_grain", quantity : 2 },
@@ -264,6 +282,15 @@ const data : Data = {
             ],
             workshop: "alchemist",
             outputQuantity : 1,
+        },
+        {
+            id : "half_timbered_block",
+            inputs : [
+                { id : "lump_of_clay", quantity : 10 },
+                { id : "wood_logs", quantity : 5 },
+            ],
+            workshop: "workbench",
+            outputQuantity : 100,
         },
         {
             id : "hand_spindle",
@@ -364,6 +391,15 @@ const data : Data = {
             outputQuantity : 5,
         },
         {
+            id : "palm_wood_block",
+            inputs : [
+                { id : "palm_wood_logs", quantity : 7 },
+                { id : "wood_logs", quantity : 3 },
+            ],
+            workshop: "workbench",
+            outputQuantity : 100,
+        },
+        {
             id : "paper",
             inputs : [
                 { id : "wood_logs", quantity : 1 },
@@ -371,6 +407,24 @@ const data : Data = {
             ],
             workshop: "laboratory",
             outputQuantity : 5,
+        },
+        {
+            id : "refined_wood_block",
+            inputs : [
+                { id : "wood_planks", quantity : 15 },
+                { id : "wood_logs", quantity : 5 },
+            ],
+            workshop: "workbench",
+            outputQuantity : 100,
+        },
+        {
+            id : "roughly_cut_stone_block",
+            inputs : [
+                { id : "stone", quantity : 10 },
+                { id : "rubble", quantity : 1 },
+            ],
+            workshop: "workbench",
+            outputQuantity : 100,
         },
         {
             id : "scientific_instrument",
@@ -478,6 +532,16 @@ const data : Data = {
             ],
             workshop: "table_saw",
             outputQuantity : 2,
+        },
+        {
+            id : "yellow_luminescent_block",
+            inputs : [
+                { id : "glass", quantity : 3 },
+                { id : "saffron", quantity : 3 },
+                { id : "flintstone", quantity : 4 },
+            ],
+            workshop: "workbench",
+            outputQuantity : 100,
         },
     ],
 };

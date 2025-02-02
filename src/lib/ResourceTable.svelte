@@ -166,7 +166,6 @@
     .content {
         display: inline-flex;
         width: 100%;
-        min-height: 20rem;
         flex-wrap: wrap;
     }
 
