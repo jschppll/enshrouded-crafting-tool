@@ -3,8 +3,18 @@
     import Utils from "../resources/utils"
     import { SvelteSet } from 'svelte/reactivity';
 
+    // Types //
+    type IngredientMapType = Map<string, {
+        amount: number,
+        location: string
+    }>;
+
+
+    // Props //
     let { resource, amount }: { resource: CompoundResource | undefined, amount: number } = $props();
 
+
+    // State //
     let expandedIngredients = $state<SvelteSet<string>>(new SvelteSet());
 
     $effect(() => {
@@ -13,9 +23,8 @@
        }
     });
 
-
     let ingredientMap = $derived.by(() => {
-        const map = new Map();
+        const map: IngredientMapType = new Map();
 
         if (resource) {
             for (const item of resource.inputs) {
@@ -34,7 +43,8 @@
         return map;
     });
 
-    const Expand = (id: string, amount: number, outMap: Map<any, any>) => {
+    // Functions //
+    const Expand = (id: string, amount: number, outMap: IngredientMapType) => {
         const expandedResource = Utils.getCompoundResourceFromId(id);
         if (expandedResource)
         {
@@ -59,25 +69,28 @@
         }
     }
 
-    const addToIngredientMap = (id: string, amount: number, outMap: Map<any, any>) => {
+    const addToIngredientMap = (id: string, amount: number, outMap: IngredientMapType) => {
         // If the map already has this ingredient in it then add our expanded
         // quantity to the existing quantity
         if (outMap.has(id))
         {
-            const existingQuantity = outMap.get(id);
-            outMap.set(id, amount + existingQuantity);
+            const existingResource = outMap.get(id)!;
+            existingResource.amount += amount;
+            existingResource.location = getLocationForResourceId(id);
+
+            outMap.set(id, existingResource);
         }
         else
         {
-            outMap.set(id, amount);
+            outMap.set(id, { amount, location : getLocationForResourceId(id) });
         }
     }
 
-    const AddExpandedIngredientToMap = (ingredient : string) => {
+    const AddToExpandedIngredients = (ingredient : string) => {
         expandedIngredients.add(ingredient);
     };
 
-    const RemoveExpandedIngredientFromMap = (ingredient : string) => {
+    const RemoveFromExpandedIngredients = (ingredient : string) => {
         expandedIngredients.delete(ingredient);
     }
 
@@ -94,6 +107,16 @@
 
         return 0;
     }
+
+    const getLocationForResourceId = (id: string) => {
+        const compoundResource = Utils.getCompoundResourceFromId(id);
+        if (compoundResource)
+        {
+            return compoundResource.workshop;
+        }
+
+        else return "";
+    }
 </script>
 
 <div class="content">
@@ -103,7 +126,7 @@
             {#each expandedIngredients as expandedIngredient}
                 <li>
                     <span>{expandedIngredient}</span>
-                    <button onclick={() => RemoveExpandedIngredientFromMap(expandedIngredient)}>x</button>
+                    <button onclick={() => RemoveFromExpandedIngredients(expandedIngredient)}>x</button>
                 </li>
             {/each}
         </ul>
@@ -119,11 +142,11 @@
         </thead>
         <tbody>
         {#if resource}
-        {#each ingredientMap.entries() as [id, amount]}
+        {#each ingredientMap.entries() as [id, { amount, location }]}
             <tr>
                 <td>
                     {#if Utils.getCompoundResourceFromId(id)}
-                        <button onclick={() => AddExpandedIngredientToMap(id)}>{id}</button>
+                        <button onclick={() => AddToExpandedIngredients(id)}>{id}</button>
                     {:else}
                         <p>{id}</p>
                     {/if}
@@ -131,7 +154,7 @@
 
                 <td>{amount}</td>
 
-                <td></td>
+                <td>{location}</td>
             </tr>
         {/each}
         {/if}
