@@ -6,7 +6,7 @@
   import type {CompoundResource} from "../resources/ResourceTypes";
   import ResourceTable from "./ResourceTable.svelte";
 
-  let selectedWorkshop = $state<string>();
+  let selectedWorkshop = $state<string>("show_all");
   let selectedResource = $state<CompoundResource>();
 
   let amount = $state(1);
@@ -23,18 +23,25 @@
 
     for (const resource of data.compoundResources)
     {
-      if (resource.workshop == selectedWorkshop)
+      if (selectedWorkshop === "show_all")
+      {
+        outResources.push(resource);
+      }
+      else if (resource.workshop == selectedWorkshop)
       {
         outResources.push(resource);
       }
     }
 
-    return outResources;
+    return outResources.sort();
   });
 </script>
 
+<h1>Enshrouded Crafting Tool</h1>
+
 <div class="workshopButtons">
-  {#each workshops  as workshop}
+  <button class="resourceButton workshopButton" data-active={selectedWorkshop === "show_all"} onclick={() => selectedWorkshop = "show_all"}>Show All</button>
+  {#each [...workshops].sort()  as workshop}
     <button class="resourceButton workshopButton" data-active={workshop === selectedWorkshop} onclick={() => selectedWorkshop = workshop}>{workshop}</button>
   {/each}
 </div>
@@ -46,7 +53,9 @@
 </div>
 
 <div class="details">
-  <h2>Crafting: {selectedResource ? selectedResource.id : ""}</h2>
+  <h2><span class="label">Crafting:</span> {selectedResource ? selectedResource.id : ""}</h2>
+  <h4><span class="label">Crafted By:</span> {selectedResource ? selectedResource.workshop : ""}</h4>
+  <h4><span class="label">Ratio:</span> {selectedResource ? `${selectedResource.outputQuantity} / 1` : ""}</h4>
   <div class="amount">
     <span>Amount: </span>
     <input bind:value={amount}>
@@ -56,19 +65,33 @@
 </div>
 
 <style>
+  h1 {
+    margin: 1rem;
+  }
+
   .details {
     min-height: 10rem;
+
+    .label {
+      color: violet;
+    }
 
     h2 {
       text-align: left;
       margin-left: 2rem;
-      min-height: 2rem;
+      min-height: 1.5rem;
+    }
+
+    h4 {
+      text-align: left;
+      margin-left: 2rem;
+      min-height: 1.5rem;
     }
   }
 
   .resourceButtons {
     margin-bottom: 4rem;
-    min-height: 6rem;
+    min-height: 4rem;
   }
 
   .workshopButtons {
@@ -80,7 +103,7 @@
     margin: 0.25rem;
 
       &[data-active="true"] {
-        color: yellow;
+        color: violet;
       }
   }
 

@@ -27,12 +27,10 @@ const data : Data = {
         { id : "sugar_cane" },
         { id : "sulfur" },
         { id : "tin_ore" },
+        { id : "torn_cloth" },
         { id : "water" },
         { id : "wheat_grain" },
         { id : "wood_logs" },
-    ],
-    lockedResources : [
-        { id : "iron_bars" },
     ],
     compoundResources : [
         {
@@ -86,6 +84,15 @@ const data : Data = {
                 { id : "lump_of_clay", quantity : 5 },
             ],
             workshop: "alchemist",
+            outputQuantity : 1,
+        },
+        {
+            id : "bandage",
+            inputs : [
+                { id : "torn_cloth", quantity : 1 },
+                { id : "string", quantity : 1 },
+            ],
+            workshop: "manual_crafting",
             outputQuantity : 1,
         },
         {
@@ -162,6 +169,16 @@ const data : Data = {
             ],
             workshop: "smelter",
             outputQuantity : 10,
+        },
+        {
+            id : "cleaned_bandage",
+            inputs : [
+                { id : "torn_cloth", quantity : 1 },
+                { id : "string", quantity : 1 },
+                { id : "antiseptic", quantity : 1 },
+            ],
+            workshop: "hunter",
+            outputQuantity : 1,
         },
         {
             id : "dried_fur",
