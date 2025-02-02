@@ -166,10 +166,12 @@
     .content {
         display: inline-flex;
         width: 100%;
+        min-height: 20rem;
+        flex-wrap: wrap;
     }
 
     .sidebar {
-        width: 20rem;
+        flex-basis: 20rem;
         border: 2px solid black;
         margin: 1rem 2rem;
 
@@ -200,6 +202,8 @@
         width: 100%;
         margin-top: 1rem;
         text-align: left;
+        flex-grow: 1;
+        flex-basis: content;
 
         thead {
             background-color: black;
