@@ -11,7 +11,7 @@
 
 
     // Props //
-    let { resource, amount }: { resource: CompoundResource | undefined, amount: number } = $props();
+    let { resource, amount = $bindable() }: { resource: CompoundResource | undefined, amount: number } = $props();
 
 
     // State //
@@ -20,6 +20,7 @@
     $effect(() => {
        if (resource) {
            expandedIngredients.clear();
+           amount = 1;
        }
     });
 

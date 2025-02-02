@@ -8,6 +8,7 @@
 
   let selectedWorkshop = $state<string>();
   let selectedResource = $state<CompoundResource>();
+
   let amount = $state(1);
 
   // Populated on load
@@ -45,17 +46,24 @@
 </div>
 
 <div class="details">
+  <h2>Crafting: {selectedResource ? selectedResource.id : ""}</h2>
   <div class="amount">
     <span>Amount: </span>
     <input bind:value={amount}>
   </div>
 
-    <ResourceTable resource = {selectedResource} amount = {amount} />
+    <ResourceTable resource = {selectedResource} bind:amount = {amount} />
 </div>
 
 <style>
   .details {
     min-height: 10rem;
+
+    h2 {
+      text-align: left;
+      margin-left: 2rem;
+      min-height: 2rem;
+    }
   }
 
   .resourceButtons {
