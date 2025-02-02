@@ -78,13 +78,11 @@
 
     h2 {
       text-align: left;
-      margin-left: 2rem;
       min-height: 1.5rem;
     }
 
     h4 {
       text-align: left;
-      margin-left: 2rem;
       min-height: 1.5rem;
     }
   }
@@ -115,10 +113,5 @@
 
   .amount {
     display: flex;
-    margin: 0 1rem;
-
-    span {
-      margin: 0 1rem;
-    }
   }
 </style>

@@ -172,7 +172,7 @@
     .sidebar {
         flex-basis: 20rem;
         border: 2px solid black;
-        margin: 1rem 2rem;
+        margin: 1rem 1rem 0rem 0;
 
         p {
             background-color: black;
