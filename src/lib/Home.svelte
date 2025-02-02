@@ -6,7 +6,7 @@
   import type {CompoundResource} from "../resources/ResourceTypes";
   import ResourceTable from "./ResourceTable.svelte";
 
-  let selectedWorkshop = $state<string>("show_all");
+  let selectedWorkshop = $state<string>("alchemist");
   let selectedResource = $state<CompoundResource>();
 
   let amount = $state(1);
