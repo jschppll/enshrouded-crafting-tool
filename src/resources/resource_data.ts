@@ -527,6 +527,16 @@ const data : Data = {
             outputQuantity : 3,
         },
         {
+            id : "water_well",
+            inputs : [
+                { id : "linen", quantity : 20 },
+                { id : "stone", quantity : 100 },
+                { id : "wooden_bucket", quantity : 1 },
+            ],
+            workshop: "carpenter",
+            outputQuantity : 1,
+        },
+        {
             id : "wax",
             inputs : [
                 { id : "plant_fiber", quantity : 3 },
@@ -551,6 +561,16 @@ const data : Data = {
             ],
             workshop: "table_saw",
             outputQuantity : 2,
+        },
+        {
+            id : "wooden_bucket",
+            inputs : [
+                { id : "wood_planks", quantity : 2 },
+                { id : "metal_sheets", quantity : 1 },
+                { id : "charcoal", quantity : 1 },
+            ],
+            workshop: "carpenter",
+            outputQuantity : 1,
         },
         {
             id : "yellow_luminescent_block",
