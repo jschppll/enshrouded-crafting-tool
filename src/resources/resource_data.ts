@@ -209,6 +209,15 @@ const data : Data = {
             outputQuantity : 1,
         },
         {
+            id : "farm_soil",
+            inputs : [
+                { id : "dirt", quantity : 7 },
+                { id : "bonemeal", quantity : 3 },
+            ],
+            workshop: "farmer",
+            outputQuantity : 10,
+        },
+        {
             id : "fertilized_farm_soil",
             inputs : [
                 { id : "sand", quantity : 10 },
@@ -436,6 +445,16 @@ const data : Data = {
                 { id : "charcoal", quantity : 20 },
             ],
             workshop: "alchemist",
+            outputQuantity : 1,
+        },
+        {
+            id : "seedbed",
+            inputs : [
+                { id : "wood_logs", quantity : 10 },
+                { id : "metal_scraps", quantity : 2 },
+                { id : "farm_soil", quantity : 2 },
+            ],
+            workshop: "farmer",
             outputQuantity : 1,
         },
         {
