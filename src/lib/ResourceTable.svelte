@@ -11,11 +11,12 @@
 
 
     // Props //
-    let { resource, amount = $bindable() }: { resource: CompoundResource | undefined, amount: number } = $props();
+    let { resource }: { resource: CompoundResource | undefined } = $props();
 
 
     // State //
     let expandedIngredients = $state<SvelteSet<string>>(new SvelteSet());
+    let amount = $state(1);
 
     $effect(() => {
        if (resource) {
@@ -120,46 +121,55 @@
     }
 </script>
 
-<div class="content">
-    <div class="sidebar">
-        <p>Expanded Ingredients</p>
-        <ul>
-            {#each expandedIngredients as expandedIngredient}
-                <li>
-                    <span>{expandedIngredient}</span>
-                    <button onclick={() => RemoveFromExpandedIngredients(expandedIngredient)}>x</button>
-                </li>
-            {/each}
-        </ul>
-    </div>
+<div class="details">
+    <div class="content">
+        <div class="sidebar">
+            <h4><span class="label">Crafting:</span> {resource ? resource.id : ""}</h4>
+            <h4><span class="label">Crafted By:</span> {resource ? resource.workshop : ""}</h4>
+            <h4><span class="label">Ratio:</span> {resource ? `${resource.outputQuantity} / 1` : ""}</h4>
+            <h4>
+                <span class="label">Amount: </span>
+                <input bind:value={amount}>
+            </h4>
+            <p>Expanded Ingredients</p>
+            <ul>
+                {#each expandedIngredients as expandedIngredient}
+                    <li>
+                        <span>{expandedIngredient}</span>
+                        <button onclick={() => RemoveFromExpandedIngredients(expandedIngredient)}>x</button>
+                    </li>
+                {/each}
+            </ul>
+        </div>
 
-    <table class="ingredientTable">
-        <thead>
-        <tr>
-            <th>Ingredient</th>
-            <th>Quantity</th>
-            <th>Location</th>
-        </tr>
-        </thead>
-        <tbody>
-        {#if resource}
-        {#each ingredientMap.entries() as [id, { amount, location }]}
+        <table class="ingredientTable">
+            <thead>
             <tr>
-                <td>
-                    {#if Utils.getCompoundResourceFromId(id)}
-                        <button onclick={() => AddToExpandedIngredients(id)}>{id}</button>
-                    {:else}
-                        <p>{id}</p>
-                    {/if}
-                </td>
-
-                <td>{amount}</td>
-
-                <td>{location}</td>
+                <th>Ingredient</th>
+                <th>Quantity</th>
+                <th>Location</th>
             </tr>
-        {/each}
-        {/if}
-    </table>
+            </thead>
+            <tbody>
+            {#if resource}
+            {#each ingredientMap.entries() as [id, { amount, location }]}
+                <tr>
+                    <td>
+                        {#if Utils.getCompoundResourceFromId(id)}
+                            <button onclick={() => AddToExpandedIngredients(id)}>{id}</button>
+                        {:else}
+                            <p>{id}</p>
+                        {/if}
+                    </td>
+
+                    <td>{amount}</td>
+
+                    <td>{location}</td>
+                </tr>
+            {/each}
+            {/if}
+        </table>
+    </div>
 </div>
 
 <style>
@@ -169,10 +179,25 @@
         flex-wrap: wrap;
     }
 
+    .details {
+        min-height: 10rem;
+
+        .label {
+            color: violet;
+        }
+
+        h4 {
+            text-align: left;
+            min-height: 1.5rem;
+        }
+    }
+
     .sidebar {
         flex-basis: 20rem;
-        border: 2px solid black;
-        margin: 1rem 1rem 0rem 0;
+        margin: 0 1rem 0 0;
+        border: 3px solid black;
+        border-radius: 0.5em;
+        padding: 0.5rem;
 
         p {
             background-color: black;
@@ -195,17 +220,22 @@
             padding: 0.1rem 0.4rem;
             margin: 0 0.5rem;
         }
+
+        .amount {
+            display: flex;
+            justify-content: space-between;
+        }
     }
 
     .ingredientTable {
         width: 100%;
-        margin-top: 1rem;
         text-align: left;
         flex-grow: 1;
         flex-basis: content;
 
-        thead {
+        th {
             background-color: black;
+            padding: 0.5em;
         }
 
         td {

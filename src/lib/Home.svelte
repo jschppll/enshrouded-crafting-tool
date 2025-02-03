@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import data from "../resources/resource_data.js";
   import Utils from "../resources/utils"
 
@@ -8,8 +7,6 @@
 
   let selectedWorkshop = $state<string>("alchemist");
   let selectedResource = $state<CompoundResource>();
-
-  let amount = $state(1);
 
   // Populated on load
   let workshops = new Set<string>();
@@ -52,39 +49,13 @@
   {/each}
 </div>
 
-<div class="details">
-  <h2><span class="label">Crafting:</span> {selectedResource ? selectedResource.id : ""}</h2>
-  <h4><span class="label">Crafted By:</span> {selectedResource ? selectedResource.workshop : ""}</h4>
-  <h4><span class="label">Ratio:</span> {selectedResource ? `${selectedResource.outputQuantity} / 1` : ""}</h4>
-  <div class="amount">
-    <span>Amount: </span>
-    <input bind:value={amount}>
-  </div>
 
-    <ResourceTable resource = {selectedResource} bind:amount = {amount} />
-</div>
+<ResourceTable resource = {selectedResource} />
+
 
 <style>
   h1 {
     margin: 1rem;
-  }
-
-  .details {
-    min-height: 10rem;
-
-    .label {
-      color: violet;
-    }
-
-    h2 {
-      text-align: left;
-      min-height: 1.5rem;
-    }
-
-    h4 {
-      text-align: left;
-      min-height: 1.5rem;
-    }
   }
 
   .resourceButtons {
