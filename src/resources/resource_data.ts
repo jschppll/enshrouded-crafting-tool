@@ -346,6 +346,17 @@ const data : Data = {
             outputQuantity : 5,
         },
         {
+            id : "kiln",
+            inputs : [
+                { id : "stone", quantity : 50 },
+                { id : "lump_of_clay", quantity : 10 },
+                { id : "metal_scraps", quantity : 10 },
+                { id : "twigs", quantity : 2 },
+            ],
+            workshop: "carpenter",
+            outputQuantity : 1,
+        },
+        {
             id : "laboratory",
             inputs : [
                 { id : "scientific_instrument", quantity : 1 },
