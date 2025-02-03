@@ -97,6 +97,17 @@ const data : Data = {
             outputQuantity : 1,
         },
         {
+            id : "black_cauldron",
+            inputs : [
+                { id : "forge", quantity : 1 },
+                { id : "iron_bars", quantity : 3 },
+                { id : "copper_bars", quantity : 2 },
+                { id : "bonemeal", quantity : 15 },
+            ],
+            workshop: "blacksmith",
+            outputQuantity : 1,
+        },
+        {
             id : "black_powder",
             inputs : [
                 { id : "nitrate", quantity : 7 },
@@ -134,14 +145,11 @@ const data : Data = {
             outputQuantity : 10,
         },
         {
-            id : "black_cauldron",
+            id : "bug_dust",
             inputs : [
-                { id : "forge", quantity : 1 },
-                { id : "iron_bars", quantity : 3 },
-                { id : "copper_bars", quantity : 2 },
-                { id : "bonemeal", quantity : 15 },
+                { id : "critter_parts", quantity : 1 },                
             ],
-            workshop: "blacksmith",
+            workshop: "alchemist",
             outputQuantity : 1,
         },
         {
@@ -279,6 +287,14 @@ const data : Data = {
             ],
             workshop: "smelter",
             outputQuantity : 10,
+        },
+        {
+            id : "glow_dust",
+            inputs : [
+                { id : "fire_fly", quantity : 1 },                
+            ],
+            workshop: "alchemist",
+            outputQuantity : 1,
         },
         {
             id : "greater_health_potion",
@@ -552,6 +568,16 @@ const data : Data = {
                 { id : "water", quantity : 1 },
             ],
             workshop: "beehive",
+            outputQuantity : 1,
+        },
+            {
+            id : "wisp_of_light",
+            inputs : [
+                { id : "bug_dust", quantity : 3 },
+                { id : "glow_dust", quantity : 2 },
+                { id : "resin", quantity : 1 },
+            ],
+            workshop: "alchemist",
             outputQuantity : 1,
         },
         {
