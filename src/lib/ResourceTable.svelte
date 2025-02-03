@@ -162,9 +162,9 @@
                         {/if}
                     </td>
 
-                    <td>{amount}</td>
+                    <td><p>{amount}</p></td>
 
-                    <td>{location}</td>
+                    <td><p>{location}</p></td>
                 </tr>
             {/each}
             {/if}
@@ -220,11 +220,6 @@
             padding: 0.1rem 0.4rem;
             margin: 0 0.5rem;
         }
-
-        .amount {
-            display: flex;
-            justify-content: space-between;
-        }
     }
 
     .ingredientTable {
@@ -232,6 +227,10 @@
         text-align: left;
         flex-grow: 1;
         flex-basis: content;
+
+        tbody {
+            vertical-align: top;
+        }
 
         th {
             background-color: black;
