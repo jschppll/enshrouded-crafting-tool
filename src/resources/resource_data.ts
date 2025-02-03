@@ -418,6 +418,15 @@ const data : Data = {
             outputQuantity : 5,
         },
         {
+            id : "refined_stone_block",
+            inputs : [
+                { id : "limestone", quantity : 10 },
+                { id : "flintstone", quantity : 10 },
+            ],
+            workshop: "workbench",
+            outputQuantity : 100,
+        },
+        {
             id : "refined_wood_block",
             inputs : [
                 { id : "wood_planks", quantity : 15 },
