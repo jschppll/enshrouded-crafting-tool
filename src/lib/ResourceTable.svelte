@@ -11,7 +11,7 @@
 
 
     // Props //
-    let { resource }: { resource: CompoundResource | undefined } = $props();
+    let { resources }: { resources: CompoundResource[] } = $props();
 
 
     // State //
@@ -19,7 +19,7 @@
     let amount = $state(1);
 
     $effect(() => {
-       if (resource) {
+       if (resources) {
            expandedIngredients.clear();
            amount = 1;
        }
@@ -28,7 +28,7 @@
     let ingredientMap = $derived.by(() => {
         const map: IngredientMapType = new Map();
 
-        if (resource) {
+        for (const resource of resources) {
             for (const item of resource.inputs) {
                 const calculatedAmount = item.quantity * calculateMultiplierForRequestedAmount(resource.id, amount);
 
@@ -130,9 +130,9 @@
 <div class="details">
     <div class="content">
         <div class="sidebar">
-            <h4><span class="label">Crafting:</span> {resource ? resource.id : ""}</h4>
-            <h4><span class="label">Crafted By:</span> {resource ? resource.workshop : ""}</h4>
-            <h4><span class="label">Ratio:</span> {resource ? `${resource.outputQuantity} / 1` : ""}</h4>
+            <h4><span class="label">Crafting:</span> {resources[0] ? resources[0].id : ""}</h4>
+            <h4><span class="label">Crafted By:</span> {resources[0] ? resources[0].workshop : ""}</h4>
+            <h4><span class="label">Ratio:</span> {resources[0] ? `${resources[0].outputQuantity} / 1` : ""}</h4>
             <h4>
                 <span class="label">Amount: </span>
                 <input bind:value={amount}>
@@ -157,7 +157,7 @@
             </tr>
             </thead>
             <tbody>
-            {#if resource}
+            {#if resources}
             {#each ingredientMap.entries() as [id, { amount, location }]}
                 <tr>
                     <td>

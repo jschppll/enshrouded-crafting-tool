@@ -50,7 +50,7 @@
 </div>
 
 
-<ResourceTable resource = {selectedResource} />
+<ResourceTable resources = {selectedResource ? [selectedResource] : []} />
 
 
 <style>
