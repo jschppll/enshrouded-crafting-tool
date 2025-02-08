@@ -264,6 +264,16 @@ const data : Data = {
             outputQuantity : 100,
         },
         {
+          id : "flat_bread",
+          inputs : [
+              { id : "salt", quantity : 1 },
+              { id : "water", quantity: 1 },
+              { id : "flour", quantity: 1 },
+          ],
+            workshop : "oven",
+            outputQuantity : 1,
+        },
+        {
             id : "flour",
             inputs : [
                 { id : "wheat_grain", quantity : 2 },
@@ -470,6 +480,26 @@ const data : Data = {
             ],
             workshop: "laboratory",
             outputQuantity : 5,
+        },
+        {
+            id : "open_sandwich",
+            inputs : [
+                { id : "saffron", quantity : 1 },
+                { id : "grilled_wolf_meat", quantity : 1 },
+                { id : "flat_bread", quantity : 1 },
+            ],
+            workshop: "farmer",
+            outputQuantity : 1,
+        },
+        {
+            id : "oven",
+            inputs : [
+                { id : "fired_brick", quantity : 20 },
+                { id : "lump_of_clay", quantity : 5 },
+                { id : "metal_sheets", quantity : 5 },
+            ],
+            workshop: "farmer",
+            outputQuantity : 1,
         },
         {
             id : "palm_wood_block",
