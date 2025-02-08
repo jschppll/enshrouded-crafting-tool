@@ -6,6 +6,6 @@ export type CompoundResource = {
 }
 
 export type Data = {
-    rawResources : { id : string }[],
+    rawResources : { id : string, location : string }[],
     compoundResources : CompoundResource[],
 }

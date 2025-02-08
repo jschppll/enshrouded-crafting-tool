@@ -117,7 +117,13 @@
             return compoundResource.workshop;
         }
 
-        else return "";
+        const rawResource = Utils.getRawResourceFromId(id);
+        if (rawResource)
+        {
+            return rawResource.location;
+        }
+
+        return "";
     }
 </script>
 
