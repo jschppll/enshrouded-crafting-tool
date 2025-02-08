@@ -280,6 +280,17 @@ const data : Data = {
             outputQuantity : 1,
         },
         {
+            id : "fruit bowl",
+            inputs : [
+                { id : "honey", quantity : 1 },
+                { id : "strawberry", quantity : 2 },
+                { id : "purple_berries", quantity : 2 },
+                { id : "yucca_fruit", quantity : 1 },
+            ],
+            workshop: "farmer",
+            outputQuantity : 2,
+        },
+        {
             id : "glass",
             inputs : [
                 { id : "sand", quantity : 30 },
