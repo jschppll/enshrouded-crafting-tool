@@ -351,6 +351,15 @@ const data : Data = {
             outputQuantity : 1,
         },
         {
+            id : "grinding_stones",
+            inputs : [
+                { id : "flintstone", quantity: 10 },
+                { id : "stone", quantity : 15 },
+            ],
+            workshop: "alchemist",
+            outputQuantity : 1,
+        },
+        {
             id : "half_timbered_block",
             inputs : [
                 { id : "lump_of_clay", quantity : 10 },
