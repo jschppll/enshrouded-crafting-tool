@@ -9,6 +9,7 @@ const data : Data = {
         { id : "chamomile", location : "revelwood" },
         { id : "copper_ore", location : "revelwood" },
         { id : "dirt", location : "" },
+        { id : "feather", location : "nomad_highlands" },
         { id : "flax", location : "revelwood" },
         { id : "flintstone", location : "springlands" },
         { id : "fossilized_bone", location : "nomad_highlands" },
@@ -261,6 +262,16 @@ const data : Data = {
             ],
             workshop: "grinding_stones",
             outputQuantity : 1,
+        },
+        {
+            id : "fossilized_bone_arrow",
+            inputs : [
+                { id : "twigs", quantity : 10 },
+                { id : "feather", quantity : 5 },
+                { id : "fossilized_bone", quantity : 5 },
+            ],
+            workshop: "hunter",
+            outputQuantity : 50,
         },
         {
             id : "fossilized_bone_dust",
