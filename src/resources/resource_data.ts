@@ -442,7 +442,7 @@ const data : Data = {
             outputQuantity : 1,
         },
         {
-            id : "metal_sheet",
+            id : "metal_sheets",
             inputs : [
                 { id : "charcoal", quantity : 2 },
                 { id : "metal_scraps", quantity : 2 },
