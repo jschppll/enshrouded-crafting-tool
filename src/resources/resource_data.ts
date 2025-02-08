@@ -220,6 +220,14 @@ const data : Data = {
             outputQuantity : 1,
         },
         {
+            id : "fabric",
+            inputs : [
+                { id : "linen", quantity : 2 },
+            ],
+            workshop: "loom",
+            outputQuantity : 1,
+        },
+        {
             id : "farm_soil",
             inputs : [
                 { id : "dirt", quantity : 7 },
@@ -458,6 +466,17 @@ const data : Data = {
             ],
             workshop: "workbench",
             outputQuantity : 100,
+        },
+        {
+            id : "padding",
+            inputs : [
+                { id : "fabric", quantity : 3 },
+                { id : "leather", quantity : 1 },
+                { id : "resin", quantity : 2 },
+                { id : "linen", quantity : 2 },
+            ],
+            workshop: "hunter",
+            outputQuantity : 5,
         },
         {
             id : "paper",
