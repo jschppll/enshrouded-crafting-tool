@@ -419,6 +419,19 @@ const data : Data = {
             outputQuantity : 1,
         },
         {
+            id : "loom",
+            inputs : [
+                { id : "wood_logs", quantity : 5 },
+                { id : "wood_planks", quantity : 10 },
+                { id : "fossilized_bone", quantity : 5 },
+                { id : "bronze_bars", quantity : 1 },
+                { id : "linen", quantity : 30 },
+                { id : "nails", quantity : 10 },
+            ],
+            workshop: "hunter",
+            outputQuantity : 1,
+        },
+        {
             id : "metal_sheet",
             inputs : [
                 { id : "charcoal", quantity : 2 },
