@@ -9,3 +9,8 @@ export type Data = {
     rawResources : { id : string, location : string }[],
     compoundResources : CompoundResource[],
 }
+
+export type IngredientMapType = Map<string, {
+    amount: number,
+    location: string
+}>;

@@ -1,16 +1,14 @@
 <script lang="ts">
     import { SvelteSet } from 'svelte/reactivity';
-    import type {CompoundResource} from "../resources/ResourceTypes";
+
     import Utils from "../resources/utils"
+    import IngredientTable from "./IngredientTable.svelte";
+
+    import type {CompoundResource, IngredientMapType} from "../resources/ResourceTypes";
 
     // Types //
-    type IngredientMapType = Map<string, {
-        amount: number,
-        location: string
-    }>;
-
     type onAddSelectedFn = () => void;
-    type onRemovedFn = (itemToRemove: CompoundResource) => void;
+    type onRemovedFn = (itemToRemove: string) => void;
 
     // Props //
     let {
@@ -20,29 +18,27 @@
         removeFromShoppingList,
         shoppingList,
     }: {
-        resources: CompoundResource[],
+        resources: { resource : CompoundResource, amount : number }[],
         bShowShoppingList: boolean
         addSelectedToShoppingList: onAddSelectedFn,
         removeFromShoppingList: onRemovedFn,
-        shoppingList: CompoundResource[],
+        shoppingList: { resource : CompoundResource, amount : number }[],
     } = $props();
 
 
     // State //
     let expandedIngredients = $state<SvelteSet<string>>(new SvelteSet());
-    let amount = $state(1);
 
     $effect(() => {
        if (resources) {
            expandedIngredients.clear();
-           amount = 1;
        }
     });
 
     let ingredientMap = $derived.by(() => {
         const map: IngredientMapType = new Map();
 
-        for (const resource of resources) {
+        for (const { resource, amount } of resources) {
             for (const item of resource.inputs) {
                 const calculatedAmount = item.quantity * calculateMultiplierForRequestedAmount(resource.id, amount);
 
@@ -145,17 +141,13 @@
     <div class="content">
         <div class="sidebar">
             {#if !bShowShoppingList}
-            <h4><span class="label">Crafting:</span> {resources[0] ? resources[0].id : ""}</h4>
-            <h4><span class="label">Crafted By:</span> {resources[0] ? resources[0].workshop : ""}</h4>
-            <h4><span class="label">Ratio:</span> {resources[0] ? `${resources[0].outputQuantity} / 1` : ""}</h4>
+            <h4><span class="label">Crafting:</span> {resources[0] ? resources[0].resource.id : ""}</h4>
+            <h4><span class="label">Crafted By:</span> {resources[0] ? resources[0].resource.workshop : ""}</h4>
+            <h4><span class="label">Ratio:</span> {resources[0] ? `${resources[0].resource.outputQuantity} / 1` : ""}</h4>
 
             {:else}
                 <h4><span class="label">Crafting:</span> Multi</h4>
             {/if}
-            <h4>
-                <span class="label">Amount: </span>
-                <input bind:value={amount}>
-            </h4>
 
             {#if !bShowShoppingList}
             <div class="options">
@@ -166,10 +158,10 @@
             {#if bShowShoppingList}
             <p>Shopping List</p>
                 <ul>
-                    {#each shoppingList as shoppingItem}
+                    {#each shoppingList as { resource, amount }}
                         <li>
-                            <span>{shoppingItem.id}</span>
-                            <button onclick={() => removeFromShoppingList(shoppingItem)}>x</button>
+                            <span>{resource.id} x{amount}</span>
+                            <button onclick={() => removeFromShoppingList(resource.id)}>x</button>
                         </li>
                     {/each}
                 </ul>
@@ -188,33 +180,7 @@
             {/if}
         </div>
 
-        <table class="ingredientTable">
-            <thead>
-            <tr>
-                <th>Ingredient</th>
-                <th>Quantity</th>
-                <th>Location</th>
-            </tr>
-            </thead>
-            <tbody>
-            {#if resources}
-            {#each ingredientMap.entries() as [id, { amount, location }]}
-                <tr>
-                    <td>
-                        {#if Utils.getCompoundResourceFromId(id)}
-                            <button onclick={() => AddToExpandedIngredients(id)}>{id}</button>
-                        {:else}
-                            <p>{id}</p>
-                        {/if}
-                    </td>
-
-                    <td><p>{amount}</p></td>
-
-                    <td><p>{location}</p></td>
-                </tr>
-            {/each}
-            {/if}
-        </table>
+        <IngredientTable {ingredientMap} onAddToExpandedList={AddToExpandedIngredients} />
     </div>
 </div>
 
@@ -284,26 +250,6 @@
                     color: var(--highlight-color);
                 }
             }
-        }
-    }
-
-    .ingredientTable {
-        width: 100%;
-        text-align: left;
-        flex-grow: 1;
-        flex-basis: content;
-
-        tbody {
-            vertical-align: top;
-        }
-
-        th {
-            background-color: black;
-            padding: 0.5em;
-        }
-
-        td {
-            margin: 0.25rem;
         }
     }
 </style>

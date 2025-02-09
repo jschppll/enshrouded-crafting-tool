@@ -1,17 +1,27 @@
 <script lang="ts">
+  import {SvelteMap} from "svelte/reactivity";
+
   import data from "../resources/resource_data.js";
   import Utils from "../resources/utils"
-  import {SvelteSet} from "svelte/reactivity";
-  import type {CompoundResource} from "../resources/ResourceTypes";
-  import ResourceTable from "./ResourceTable.svelte";
+
+  import Main from "./Main.svelte";
   import SlideToggle from "./SlideToggle.svelte";
+
+  import type {CompoundResource} from "../resources/ResourceTypes";
 
   let selectedWorkshop = $state<string>("alchemist");
   let selectedResource = $state<CompoundResource>();
 
-  let shoppingList = $state<SvelteSet<CompoundResource>>(new SvelteSet());
+  let shoppingList = $state<SvelteMap<string, { resource: CompoundResource, amount: number } >>(new SvelteMap());
 
+  let amount = $state(1);
   let bShowShoppingList = $state(false);
+
+  $effect(() => {
+    if (selectedResource) {
+      amount = 1;
+    }
+  });
 
   // Populated on load
   let workshops = new Set<string>();
@@ -40,7 +50,7 @@
 
   let selectedItemAsList = $derived.by(() => {
     if (selectedResource) {
-      return [ selectedResource ];
+      return [ { resource : selectedResource, amount }];
     }
 
     return [];
@@ -48,11 +58,11 @@
 
   const addSelectedToShoppingList = () => {
     if (selectedResource) {
-      shoppingList.add(selectedResource);
+      shoppingList.set(selectedResource.id, { resource: selectedResource, amount });
     }
   }
 
-  const removeFromShoppingList = (itemToRemove: CompoundResource) => {
+  const removeFromShoppingList = (itemToRemove: string) => {
     if (itemToRemove) {
       shoppingList.delete(itemToRemove);
     }
@@ -74,17 +84,23 @@
   {/each}
 </div>
 
-<div class="shoppingList">
+<div class="optionBar">
   <SlideToggle label="Show Shopping List" bind:value={bShowShoppingList} />
+
+  {#if !bShowShoppingList}
+  <p>
+    <span class="label">Amount: </span>
+    <input bind:value={amount}>
+  </p>
+  {/if}
 </div>
 
-
-<ResourceTable
-  resources = {bShowShoppingList ? [ ...shoppingList ] : selectedItemAsList}
+<Main
+  resources = {bShowShoppingList ? [ ...shoppingList.values() ] : selectedItemAsList}
   {bShowShoppingList}
   {addSelectedToShoppingList}
   {removeFromShoppingList}
-  shoppingList = {[ ...shoppingList ]}
+  shoppingList = {[ ...shoppingList.values() ]}
 />
 
 <style>
@@ -123,7 +139,13 @@
     font-size: 0.75rem;
   }
 
-  .shoppingList {
+  .optionBar {
+    display: flex;
     margin: 1rem 0;
+    min-height: 4rem;
+
+    p {
+        margin-left: 2rem;
+    }
   }
 </style>
