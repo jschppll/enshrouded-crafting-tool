@@ -9,18 +9,21 @@
         location: string
     }>;
 
-    type onAddSelectedFn = () => void
+    type onAddSelectedFn = () => void;
+    type onRemovedFn = (itemToRemove: CompoundResource) => void;
 
     // Props //
     let {
         resources,
         bShowShoppingList,
         addSelectedToShoppingList,
+        removeFromShoppingList,
         shoppingList,
     }: {
         resources: CompoundResource[],
         bShowShoppingList: boolean
         addSelectedToShoppingList: onAddSelectedFn,
+        removeFromShoppingList: onRemovedFn,
         shoppingList: CompoundResource[],
     } = $props();
 
@@ -166,7 +169,7 @@
                     {#each shoppingList as shoppingItem}
                         <li>
                             <span>{shoppingItem.id}</span>
-                            <button onclick={() => {/** todo: remove shopping item */ }}>x</button>
+                            <button onclick={() => removeFromShoppingList(shoppingItem)}>x</button>
                         </li>
                     {/each}
                 </ul>
@@ -226,7 +229,7 @@
         min-height: 10rem;
 
         .label {
-            color: violet;
+            color: var(--highlight-color);
         }
 
         h4 {
@@ -271,6 +274,15 @@
             button {
                 padding: 0.5rem;
                 margin: 1rem 0;
+
+                &:hover {
+                    background-color: var(--highlight-color);
+                }
+
+                &:active {
+                    background-color: var(--dark-gray);
+                    color: var(--highlight-color);
+                }
             }
         }
     }

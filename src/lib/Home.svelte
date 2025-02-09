@@ -1,7 +1,7 @@
 <script lang="ts">
   import data from "../resources/resource_data.js";
   import Utils from "../resources/utils"
-
+  import {SvelteSet} from "svelte/reactivity";
   import type {CompoundResource} from "../resources/ResourceTypes";
   import ResourceTable from "./ResourceTable.svelte";
   import SlideToggle from "./SlideToggle.svelte";
@@ -9,7 +9,7 @@
   let selectedWorkshop = $state<string>("alchemist");
   let selectedResource = $state<CompoundResource>();
 
-  let shoppingList = $state<CompoundResource[]>([]);
+  let shoppingList = $state<SvelteSet<CompoundResource>>(new SvelteSet());
 
   let bShowShoppingList = $state(false);
 
@@ -48,7 +48,13 @@
 
   const addSelectedToShoppingList = () => {
     if (selectedResource) {
-      shoppingList.push(selectedResource);
+      shoppingList.add(selectedResource);
+    }
+  }
+
+  const removeFromShoppingList = (itemToRemove: CompoundResource) => {
+    if (itemToRemove) {
+      shoppingList.delete(itemToRemove);
     }
   }
 </script>
@@ -74,13 +80,21 @@
 
 
 <ResourceTable
-  resources = {bShowShoppingList ? shoppingList : selectedItemAsList}
+  resources = {bShowShoppingList ? [ ...shoppingList ] : selectedItemAsList}
   {bShowShoppingList}
   {addSelectedToShoppingList}
-  {shoppingList}
+  {removeFromShoppingList}
+  shoppingList = {[ ...shoppingList ]}
 />
 
 <style>
+  :root {
+    --accent-color: #4dbd69;
+    --highlight-color: #a7a3f1;
+    --gray: #ccc;
+    --dark-gray: #38374c;
+  }
+
   h1 {
     margin: 1rem;
   }
@@ -99,12 +113,12 @@
     margin: 0.25rem;
 
       &[data-active="true"] {
-        color: violet;
+        color: var(--highlight-color);
       }
   }
 
   .workshopButton {
-    background-color: #213547;
+    background-color: var(--dark-gray);
     border-radius: 0;
     font-size: 0.75rem;
   }
