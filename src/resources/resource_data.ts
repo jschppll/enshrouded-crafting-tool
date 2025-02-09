@@ -202,6 +202,56 @@ const data : Data = {
             outputQuantity : 1,
         },
         {
+            id : "deadeye_hood",
+            inputs : [
+                { id : "padding", quantity : 1 },
+                { id : "yellow_fabric", quantity : 1 },
+                { id : "scales", quantity : 5 },
+            ],
+            workshop: "hunter",
+            outputQuantity : 1,
+        },
+        {
+            id : "deadeye_vest",
+            inputs : [
+                { id : "padding", quantity : 4 },
+                { id : "yellow_fabric", quantity : 4 },
+                { id : "scales", quantity : 20 },
+            ],
+            workshop: "hunter",
+            outputQuantity : 1,
+        },
+        {
+            id : "deadeye_gloves",
+            inputs : [
+                { id : "padding", quantity : 2 },
+                { id : "yellow_fabric", quantity : 2 },
+                { id : "scales", quantity : 10 },
+            ],
+            workshop: "hunter",
+            outputQuantity : 1,
+        },
+        {
+            id : "deadeye_trousers",
+            inputs : [
+                { id : "padding", quantity : 4 },
+                { id : "yellow_fabric", quantity : 4 },
+                { id : "scales", quantity : 15 },
+            ],
+            workshop: "hunter",
+            outputQuantity : 1,
+        },
+        {
+            id : "deadeye_boots",
+            inputs : [
+                { id : "padding", quantity : 2 },
+                { id : "yellow_fabric", quantity : 1 },
+                { id : "scales", quantity : 4 },
+            ],
+            workshop: "hunter",
+            outputQuantity : 1,
+        },
+        {
             id : "dried_fur",
             inputs : [
                 { id : "animal_fur", quantity : 1 },
