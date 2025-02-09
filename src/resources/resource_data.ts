@@ -577,7 +577,7 @@ const data : Data = {
                 { id : "linen", quantity : 2 },
             ],
             workshop: "hunter",
-            outputQuantity : 5,
+            outputQuantity : 1,
         },
         {
             id : "paper",
