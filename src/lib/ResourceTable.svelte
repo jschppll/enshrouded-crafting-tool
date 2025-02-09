@@ -1,7 +1,7 @@
 <script lang="ts">
+    import { SvelteSet } from 'svelte/reactivity';
     import type {CompoundResource} from "../resources/ResourceTypes";
     import Utils from "../resources/utils"
-    import { SvelteSet } from 'svelte/reactivity';
 
     // Types //
     type IngredientMapType = Map<string, {
@@ -9,9 +9,20 @@
         location: string
     }>;
 
+    type onAddSelectedFn = () => void
 
     // Props //
-    let { resources }: { resources: CompoundResource[] } = $props();
+    let {
+        resources,
+        bShowShoppingList,
+        addSelectedToShoppingList,
+        shoppingList,
+    }: {
+        resources: CompoundResource[],
+        bShowShoppingList: boolean
+        addSelectedToShoppingList: onAddSelectedFn,
+        shoppingList: CompoundResource[],
+    } = $props();
 
 
     // State //
@@ -130,13 +141,38 @@
 <div class="details">
     <div class="content">
         <div class="sidebar">
+            {#if !bShowShoppingList}
             <h4><span class="label">Crafting:</span> {resources[0] ? resources[0].id : ""}</h4>
             <h4><span class="label">Crafted By:</span> {resources[0] ? resources[0].workshop : ""}</h4>
             <h4><span class="label">Ratio:</span> {resources[0] ? `${resources[0].outputQuantity} / 1` : ""}</h4>
+
+            {:else}
+                <h4><span class="label">Crafting:</span> Multi</h4>
+            {/if}
             <h4>
                 <span class="label">Amount: </span>
                 <input bind:value={amount}>
             </h4>
+
+            {#if !bShowShoppingList}
+            <div class="options">
+                <button onclick={() => addSelectedToShoppingList()}>Add To Shopping List</button>
+            </div>
+            {/if}
+
+            {#if bShowShoppingList}
+            <p>Shopping List</p>
+                <ul>
+                    {#each shoppingList as shoppingItem}
+                        <li>
+                            <span>{shoppingItem.id}</span>
+                            <button onclick={() => {/** todo: remove shopping item */ }}>x</button>
+                        </li>
+                    {/each}
+                </ul>
+            {/if}
+
+            {#if expandedIngredients.size > 0}
             <p>Expanded Ingredients</p>
             <ul>
                 {#each expandedIngredients as expandedIngredient}
@@ -146,6 +182,7 @@
                     </li>
                 {/each}
             </ul>
+            {/if}
         </div>
 
         <table class="ingredientTable">
@@ -225,6 +262,16 @@
         button {
             padding: 0.1rem 0.4rem;
             margin: 0 0.5rem;
+        }
+
+        .options {
+            display: flex;
+            width: 100%;
+
+            button {
+                padding: 0.5rem;
+                margin: 1rem 0;
+            }
         }
     }
 

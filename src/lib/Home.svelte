@@ -4,9 +4,14 @@
 
   import type {CompoundResource} from "../resources/ResourceTypes";
   import ResourceTable from "./ResourceTable.svelte";
+  import SlideToggle from "./SlideToggle.svelte";
 
   let selectedWorkshop = $state<string>("alchemist");
   let selectedResource = $state<CompoundResource>();
+
+  let shoppingList = $state<CompoundResource[]>([]);
+
+  let bShowShoppingList = $state(false);
 
   // Populated on load
   let workshops = new Set<string>();
@@ -32,6 +37,20 @@
 
     return outResources.sort();
   });
+
+  let selectedItemAsList = $derived.by(() => {
+    if (selectedResource) {
+      return [ selectedResource ];
+    }
+
+    return [];
+  });
+
+  const addSelectedToShoppingList = () => {
+    if (selectedResource) {
+      shoppingList.push(selectedResource);
+    }
+  }
 </script>
 
 <h1>Enshrouded Crafting Tool</h1>
@@ -49,9 +68,17 @@
   {/each}
 </div>
 
+<div class="shoppingList">
+  <SlideToggle label="Show Shopping List" bind:value={bShowShoppingList} />
+</div>
 
-<ResourceTable resources = {selectedResource ? [selectedResource] : []} />
 
+<ResourceTable
+  resources = {bShowShoppingList ? shoppingList : selectedItemAsList}
+  {bShowShoppingList}
+  {addSelectedToShoppingList}
+  {shoppingList}
+/>
 
 <style>
   h1 {
@@ -82,7 +109,7 @@
     font-size: 0.75rem;
   }
 
-  .amount {
-    display: flex;
+  .shoppingList {
+    margin: 1rem 0;
   }
 </style>

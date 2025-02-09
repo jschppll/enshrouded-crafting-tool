@@ -341,7 +341,6 @@ const data : Data = {
         {
             id : "greater_health_potion",
             inputs : [
-                { id : "mortar", quantity: 1 },
                 { id : "honey", quantity : 1 },
                 { id : "water", quantity : 1 },
                 { id : "purple_berries", quantity : 1 },
@@ -611,7 +610,6 @@ const data : Data = {
         {
             id : "sugar",
             inputs : [
-                { id : "almanac_of_plants_and_seedlings", quantity: 1 },
                 { id : "sugar_cane", quantity : 2 },
             ],
             workshop: "farmer",
