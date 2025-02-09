@@ -762,6 +762,15 @@ const data : Data = {
             outputQuantity : 1,
         },
         {
+            id : "yellow_fabric",
+            inputs : [
+                { id : "fabric", quantity : 1 },
+                { id : "saffron", quantity : 1 },
+            ],
+            workshop: "hunter",
+            outputQuantity : 1,
+        },
+        {
             id : "yellow_luminescent_block",
             inputs : [
                 { id : "glass", quantity : 3 },
