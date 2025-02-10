@@ -165,6 +165,18 @@ const data : Data = {
             outputQuantity : 15,
         },
         {
+            id : "chicken_soup",
+            inputs : [
+                { id : "forest_beet", quantity : 3 },
+                { id : "water", quantity : 5 },
+                { id : "salt", quantity : 1 },
+                { id : "raw_bird_meat", quantity : 3 },
+                { id : "bell_pepper", quantity : 3 },
+            ],
+            workshop: "farmer",
+            outputQuantity : 5,
+        },
+        {
             id : "circular_sawblade",
             inputs: [
                 { id : "forge", quantity : 1 },
