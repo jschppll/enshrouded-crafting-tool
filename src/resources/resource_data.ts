@@ -156,6 +156,15 @@ const data : Data = {
             outputQuantity : 1,
         },
         {
+            id : "candle",
+            inputs : [
+                { id : "string", quantity : 1 },
+                { id : "wax", quantity : 1 },
+            ],
+            workshop: "workbench",
+            outputQuantity : 1,
+        },
+        {
             id : "charcoal",
             inputs : [
                 { id : "wood_logs", quantity : 17 },
@@ -599,6 +608,18 @@ const data : Data = {
             ],
             workshop: "laboratory",
             outputQuantity : 5,
+        },
+        {
+            id : "paper_lantern",
+            inputs : [
+                { id : "metal_scraps", quantity : 1 },
+                { id : "charcoal", quantity : 1 },
+                { id : "plant_fiber", quantity : 2 },
+                { id : "torn_cloth", quantity : 1 },
+                { id : "candle", quantity : 1 },
+            ],
+            workshop: "lunar_new_year_trader",
+            outputQuantity : 1,
         },
         {
             id : "refined_stone_block",
