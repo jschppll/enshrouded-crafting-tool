@@ -291,6 +291,16 @@ const data : Data = {
             outputQuantity : 1,
         },
         {
+            id : "explosive_arrow_1",
+            inputs : [
+                { id : "flint_arrow", quantity : 25 },
+                { id : "tar", quantity : 10 },
+                { id : "lump_of_clay", quantity : 5 },
+            ],
+            workshop: "hunter",
+            outputQuantity : 25,
+        },
+        {
             id : "fabric",
             inputs : [
                 { id : "linen", quantity : 2 },
@@ -343,6 +353,15 @@ const data : Data = {
           ],
             workshop : "oven",
             outputQuantity : 1,
+        },
+        {
+            id : "flint_arrow",
+            inputs : [
+                { id : "twigs", quantity : 10 },
+                { id : "flintstone", quantity: 10 },
+            ],
+            workshop : "hunter",
+            outputQuantity : 50,
         },
         {
             id : "flour",
